@@ -413,7 +413,7 @@ QuestionView = (function(_super) {
   };
 
   QuestionView.prototype.save = _.throttle(function() {
-    var coords, currentData, currentPosition, error,
+    var coords, currentData, currentPosition, error, uuid,
       _this = this;
     currentData = $('form').toObject({
       skipEmpty: false
@@ -454,6 +454,9 @@ QuestionView = (function(_super) {
     }
     if (this.result.question() === 'Individual Registration') {
       Coconut.currentClient = null;
+      uuid = CoconutUtils.uuidGenerator(30);
+      currentData.clientId = uuid;
+      currentData._id = uuid;
     }
     if (typeof Coconut.currentClient !== 'undefined' && Coconut.currentClient !== null) {
       currentData.clientId = Coconut.currentClient.get("_id");
@@ -485,7 +488,7 @@ QuestionView = (function(_super) {
             return Coconut.router.navigate("postAdminRegistrationMenu", true);
           } else if (_this.result.question() === 'Individual Registration') {
             Coconut.currentClient = _this.result;
-            return Coconut.router.navigate("postUserRegistrationMenu", true);
+            return Coconut.router.navigate("displayClientRecords", true);
           } else {
             return Coconut.router.navigate("displayClientRecords", true);
           }

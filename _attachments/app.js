@@ -55,6 +55,8 @@ Router = (function(_super) {
     "loadTestClient": "loadTestClient",
     "enroll": "enroll",
     "enroll/:user": "enroll",
+    "patient/:patientId": "showPatient",
+    "search/:keyword": "searchPatients",
     "": "displayAllRecords"
   };
 
@@ -272,6 +274,14 @@ Router = (function(_super) {
     });
   };
 
+  Router.prototype.searchPatients = function(keywords) {
+    return this.userLoggedIn({
+      success: function() {
+        return Coconut.Controller.displayPatientRecords(keywords);
+      }
+    });
+  };
+
   Router.prototype.loadTestClient = function() {
     return this.userLoggedIn({
       success: function() {
@@ -337,11 +347,10 @@ Router = (function(_super) {
   Router.prototype.showPatient = function(patientId) {
     return this.userLoggedIn({
       success: function() {
-        Coconut.caseView["case"] = new Result({
-          caseID: caseID,
-          _id: caseID
+        Coconut.currentClient = new Result({
+          _id: patientId
         });
-        return Coconut.caseView["case"].fetch({
+        return Coconut.currentClient.fetch({
           success: function() {
             Coconut.router.navigate("displayClientRecords");
             return Coconut.Controller.displayClientRecords();
