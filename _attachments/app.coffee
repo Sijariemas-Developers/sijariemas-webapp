@@ -164,6 +164,7 @@ class Router extends Backbone.Router
 
 
   userLoggedIn: (callback) ->
+    console.log("test")
     user = new User
       _id: "user.admin"
       langChoice:"en"

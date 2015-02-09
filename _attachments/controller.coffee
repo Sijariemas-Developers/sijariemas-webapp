@@ -187,7 +187,7 @@ Controller =
               console.log JSON.stringify err
 
   displayPatientRecords: (keyword) ->
-#    console.log("adminId: " + adminId)
+#    console.log("adminId: " + keyword)
     viewOptions = {}
     results = new AdminCollection
     fun = 'by_PatientId'
@@ -213,3 +213,5 @@ Controller =
     if typeof keyword != 'undefined' && keyword !=""
       options.options.query.key = keyword
     results.fetch options
+
+#    test

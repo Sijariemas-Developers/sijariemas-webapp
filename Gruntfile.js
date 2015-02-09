@@ -15,6 +15,10 @@ module.exports = function(grunt) {
             less: {
                 files: ['_attachments/bower_components/bootstrap/less/*.less'],
                 tasks: ['less']
+            },
+            coffee: {
+              files: ['_attachments/**/*.coffee'],
+              tasks: ['coffee']
             }
         },
         handlebars: {
@@ -41,6 +45,22 @@ module.exports = function(grunt) {
                     "_attachments/bower_components/bootstrap/dist/css/bootstrap.css": "_attachments/bower_components/bootstrap/less/bootstrap.less"
                 }
             }
+        },
+        coffee: {
+          compile: {
+            options: {
+              bare: true
+            },
+            expand: true,
+            flatten: false,
+            cwd: "_attachments",
+            src: ["**/*.coffee"],
+            dest: '_attachments',
+            ext: ".js"
+            //files: {
+            //  '_attachments/**/*.js': '_attachments/**/*.coffee' // 1:1 compile,
+            //}
+          }
         }
     });
 
@@ -48,6 +68,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-handlebars');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.registerTask('default',['less']);
 
 //    grunt.registerTask('less', function (target) {
